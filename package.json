@@ -1,0 +1,19 @@
+{
+  "name": "frisco_reservastion",
+  "version": "1.0.0",
+  "description": "Selinium based automation tool for reservations",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bunyan": "^1.8.14",
+    "dotenv": "^8.2.0",
+    "node-cron": "^2.0.3",
+    "nodemailer": "^6.4.14",
+    "selenium-webdriver": "^4.0.0-alpha.7"
+  }
+}

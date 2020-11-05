@@ -1,0 +1,17 @@
+EMAIL=login email to frisco
+PASSWORD=password for frisco
+
+#Make selenium work every _ miuntes   
+CRON=2
+
+#PROVIDE MONTH FOR WHICH YOU WANT TO RESERVE example (sty, lut,) 
+#You can also provide day aswell example (10 sty) 
+
+MONTH=lis
+
+#NODEMAILER
+EMAIL_HOST=some.mail.server
+EMAIL_PORT=586 ( 465 for tls) 
+EMAIL_USER=email account
+EMAIL_PASS=email password
+EMAIL_TO=mail1@mail.com,mail2@mail.com
