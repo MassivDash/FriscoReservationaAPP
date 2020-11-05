@@ -10,6 +10,8 @@ For configuration see envexample file.
 
 note: app developed for linux system, for windows you must download the windows chrome driver. 
 
+note: Current reservation in frisco needs to be hidden / saved to clipboard, so the frisko shows possible delivery dates and not the current active delivery date 
+
 
 Spaceghost
 https://spaceout.pl
