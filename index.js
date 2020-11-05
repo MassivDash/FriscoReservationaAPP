@@ -1,4 +1,5 @@
 const { Builder, By, until } = require('selenium-webdriver')
+const chrome = require('selenium-webdriver/chrome');
 const cron = require('node-cron')
 const path = require('path')
 const nodemailer = require('nodemailer')
@@ -67,13 +68,19 @@ const task = cron.schedule(`*/${process.env.CRON} * * * *`, () => {
   runSelenium()
 })
 
+//Headless chrome screen settings
+
+const screen = {
+    width: 1920,
+    height: 1440
+  };
+
 // Actual selenium job
 const runSelenium = async () => {
   logger.info(`Cron started ${new Date()}`)
 
   // use chrome driver
-  const driver = await new Builder().forBrowser('chrome').build()
-  driver.manage().window().maximize()
+  const driver = await new Builder().forBrowser('chrome').setChromeOptions(new chrome.Options().headless().windowSize(screen)).build()
   try {
 
     // Go to frisco website
@@ -154,3 +161,4 @@ const runSelenium = async () => {
 
 // Start the cron job
 task.start()
+
