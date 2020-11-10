@@ -38,7 +38,7 @@ const transporter = nodemailer.createTransport({
 })
 
 // send mail with defined transport object
-const sendEmail = async (dateText, conformationTex) => {
+const sendEmail = async (dateText, conformationText) => {
   return await transporter.sendMail({
     from: `"Frisco app 👻" <${process.env.EMAIL_USER}>`,
     to: process.env.EMAIL_TO,
@@ -145,7 +145,7 @@ const runSelenium = async () => {
       const isValidated = conformationText.search('Termin został zarezerwowany')
       if(isValidated >= 0){
       //Send email with the date 
-        await sendEmail(dateText, conformationTex)
+        await sendEmail(dateText, conformationText)
         logger.info(`RESERVATION MADE for ${dateText}`)
           
      
