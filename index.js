@@ -80,7 +80,7 @@ const runSelenium = async () => {
   logger.info(`Cron started ${new Date()}`)
 
   // use chrome driver
-  const driver = await new Builder().forBrowser('chrome').setChromeOptions(new chrome.Options().headless().windowSize(screen)).build()
+  const driver = await new Builder().forBrowser('chrome').setChromeOptions(new chrome.Options().windowSize(screen)).build()
   try {
 
     // Go to frisco website
@@ -95,7 +95,7 @@ const runSelenium = async () => {
     await driver.findElement(By.xpath("//*[@id='container']/div/div[2]/div/div[2]/div/form/section/input")).click()
 
     // Delay for the website to make async calls so it shows the "soonest" delivery
-    await delay(8000)
+    await delay(12000)
 
     // Make sure that date is there
     await driver.wait(until.elementLocated(By.xpath('/html/body/div[1]/div/div/div[2]/div/div[1]/div/div[5]/div/div[2]')), 80000)
@@ -137,18 +137,26 @@ const runSelenium = async () => {
       await orderButton.click()
 
       //There is a small delay between clicking and conformation pop up 
-      //Making sure that selenium allows browser to send all the needed data  
-      await delay(8000)
-
+      //Making sure that selenium allows browser to send all the needed data 
+      await driver.wait(until.elementLocated(By.xpath('/html/body/div[1]/div/div/span[2]/div/div/div/div/h3/span')), 120000)
+      const conformationTextElement = await driver.findElement((By.xpath('/html/body/div[1]/div/div/span[2]/div/div/div/div/h3/span')))
+      const conformationText = await conformationTextElement.getText();
+      logger.info(`RESERVATION: ${conformationText}`)
+      const isValidated = conformationText.search('Termin został zarezerwowany')
+      if(isValidated >= 0){
       //Send email with the date 
-      await sendEmail(dateText)
-
+        await sendEmail(dateText)
+        logger.info(`RESERVATION MADE for ${dateText}`)
+          
+     
       //Log the job well done
-      logger.info(`RESERVATION MADE for ${dateText}`)
-      logger.info('Cron about to stop')
-      
-      //Stop cron so it does not keep on reserving the delivery date
-      task.stop()
+        logger.info('Cron about to stop')
+        
+        //Stop cron so it does not keep on reserving the delivery date
+        task.stop()
+
+      }
+
     }
   } catch (err) {
     logger.error(err)
@@ -160,5 +168,6 @@ const runSelenium = async () => {
 }
 
 // Start the cron job
-task.start()
+// task.start()
+runSelenium()
 
