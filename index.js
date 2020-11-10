@@ -80,7 +80,7 @@ const runSelenium = async () => {
   logger.info(`Cron started ${new Date()}`)
 
   // use chrome driver
-  const driver = await new Builder().forBrowser('chrome').setChromeOptions(new chrome.Options().windowSize(screen)).build()
+  const driver = await new Builder().forBrowser('chrome').setChromeOptions(new chrome.Options().headless().windowSize(screen)).build()
   try {
 
     // Go to frisco website
