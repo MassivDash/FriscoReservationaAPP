@@ -4,10 +4,10 @@ PASSWORD=password for frisco
 #Make selenium work every _ miuntes   
 CRON=2
 
-#PROVIDE MONTH FOR WHICH YOU WANT TO RESERVE example (sty, lut,) 
-#You can also provide day aswell example (10 sty) 
+#PROVIDE DATES FOR WHICH YOU WANT TO RESERVE example (17 sty, 15 lut)
+#You can match months (sty, lut)
 
-MONTH=lis
+DATES=22 lis, 21 lis
 
 #NODEMAILER
 EMAIL_HOST=some.mail.server

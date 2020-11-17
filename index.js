@@ -43,7 +43,7 @@ const sendEmail = async (dateText, conformationText) => {
     from: `"Frisco app 👻" <${process.env.EMAIL_USER}>`,
     to: process.env.EMAIL_TO,
     subject: 'Reservation Made ✔',
-    html: `<p><b>Frisco App</b></p><p>Reservation date: ${dateText}</p><p>${conformationTex}</p>`
+    html: `<p><b>Frisco App</b></p><p>Reservation date: ${dateText}</p><p>${conformationText}</p>`
   })
 }
 
@@ -55,12 +55,11 @@ const delay = (t, val) => {
   })
 }
 
-const isMonthPresent = (text, month) => {
-  if (text.search(month) > 0) {
-    return true
-  } else {
-    return false
-  }
+const areDatesPresent = (text, dates) => {
+  const regexFromArray = (array) =>
+  new RegExp(array.map((item) => `${item.trim()}`).join('|'));
+  const regex = regexFromArray(dates)
+  return regex.test(text)
 }
 
 // set up the cron selenium job
@@ -80,7 +79,7 @@ const runSelenium = async () => {
   logger.info(`Cron started ${new Date()}`)
 
   // use chrome driver
-  const driver = await new Builder().forBrowser('chrome').setChromeOptions(new chrome.Options().headless().windowSize(screen)).build()
+  const driver = await new Builder().forBrowser('chrome').setChromeOptions(new chrome.Options().windowSize(screen)).build()
   try {
 
     // Go to frisco website
@@ -106,8 +105,10 @@ const runSelenium = async () => {
     logger.info(`Date during render was at ${dateText}`)
 
     //Simple check if the delivery date matches the config
+    const arrayOfDates = process.env.MONTH.split(',')
+
     // This returns true / false 
-    const shouldIContinue = isMonthPresent(dateText, process.env.MONTH)
+    const shouldIContinue = areDatesPresent(dateText, arrayOfDates)
 
     if (shouldIContinue) {
 
@@ -167,7 +168,8 @@ const runSelenium = async () => {
   }
 }
 
+runSelenium()
 // Start the cron job
-task.start()
+// task.start()
 
 
