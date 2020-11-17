@@ -168,8 +168,7 @@ const runSelenium = async () => {
   }
 }
 
-runSelenium()
 // Start the cron job
-// task.start()
+task.start()
 
 
