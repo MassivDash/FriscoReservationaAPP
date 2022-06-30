@@ -13,7 +13,7 @@
     "bunyan": "^1.8.14",
     "dotenv": "^8.2.0",
     "node-cron": "^2.0.3",
-    "nodemailer": "^6.4.14",
+    "nodemailer": "^6.6.1",
     "selenium-webdriver": "^4.0.0-alpha.7"
   },
   "devDependencies": {
